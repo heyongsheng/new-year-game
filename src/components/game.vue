@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-05 00:23:34
+ * @LastEditTime: 2022-01-05 00:34:55
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -33,7 +33,8 @@ export default {
       screenWidth: document.documentElement.clientWidth, // 屏幕宽度
       screenHeight: document.documentElement.clientHeight, // 屏幕高度
       nianshouMoveDir: 2, // 年兽移动的方向
-      frequency: 2// 发射子弹频率
+      frequency: 2,// 发射子弹频率
+      lastBulletTime: 0// 上次发射子弹时间
     }
   },
   mounted() {
@@ -84,32 +85,37 @@ export default {
     },
     // 生成子弹
     createBullet () {
-      this.createBulletInterval = setInterval(() => {
+      // this.createBulletInterval = setInterval(() => {
         // 子弹
-        let bullet = document.createElement('div')
-        bullet.className = 'bullet'
-        bullet.style.left = this.paozhuLeft + 25 + 'px'
-        bullet.style.top = this.screenHeight - 123 + 'px'
-        this.$refs.gemeWrap.appendChild(bullet)
-        // 子弹移动
-        let bulletMove = () => {
-          console.log(bullet.offsetTop);
-          bullet.style.top = bullet.offsetTop - 20 + 'px'
-          if (bullet.offsetTop <= 0) {
-            this.$refs.gemeWrap.removeChild(bullet)
-            cancelAnimationFrame(bulletMove)
-          } else {
-            requestAnimationFrame(bulletMove)
+        let now = new Date().getTime()
+        let time = now - this.lastBulletTime
+        console.log(time);
+        if (now - this.lastBulletTime > (1000 / this.frequency)) {
+          let bullet = document.createElement('div')
+          bullet.className = 'bullet'
+          bullet.style.left = this.paozhuLeft + 25 + 'px'
+          bullet.style.top = this.screenHeight - 123 + 'px'
+          this.$refs.gemeWrap.appendChild(bullet)
+          // 子弹移动
+          let bulletMove = () => {
+            bullet.style.top = bullet.offsetTop - 20 + 'px'
+            if (bullet.offsetTop <= 0) {
+              this.$refs.gemeWrap.removeChild(bullet)
+              cancelAnimationFrame(bulletMove)
+            } else {
+              requestAnimationFrame(bulletMove)
+            }
           }
+          bulletMove()
+          this.lastBulletTime = now
         }
-        bulletMove()
         // setTimeout(() => {
-        //   this.createBulletInterval = requestAnimationFrame(this.createBullet)
+        this.createBulletInterval = requestAnimationFrame(this.createBullet)
         // }, 1000 / this.frequency)
         // this.createBulletInterval = setInterval(() => {
         //   this.createBullet()
         // }, 1000 / this.frequency)
-      }, 1000 / this.frequency)
+      // }, 1000 / this.frequency)
     }
   },
 }
