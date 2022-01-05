@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-05 00:34:55
+ * @LastEditTime: 2022-01-05 08:51:04
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -88,8 +88,6 @@ export default {
       // this.createBulletInterval = setInterval(() => {
         // 子弹
         let now = new Date().getTime()
-        let time = now - this.lastBulletTime
-        console.log(time);
         if (now - this.lastBulletTime > (1000 / this.frequency)) {
           let bullet = document.createElement('div')
           bullet.className = 'bullet'
@@ -159,7 +157,7 @@ export default {
   position: absolute;
   width: 5px;
   height: 30px;
-  background-image: linear-gradient(to bottom, #ffff00, #ffec81);
+  background-image: linear-gradient(to bottom, #ffee00, #ffe395);
   border-radius: 50%;
   box-shadow: 0 0 5px #fff;
 }
