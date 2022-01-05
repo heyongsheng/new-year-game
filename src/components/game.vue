@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-05 13:30:38
+ * @LastEditTime: 2022-01-05 14:56:22
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -161,7 +161,7 @@ export default {
     // 时间格式化为x分y秒z
     formatTime (time) {
       let minute = Math.floor(time / 60000)
-      let second = Math.floor(time / 1000)
+      let second = Math.floor(time % 60000 / 1000)
       let millisecond = time % 1000
       return `${minute}分${second}秒${millisecond}`
     }
