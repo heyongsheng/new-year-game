@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:13:00
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-04 21:52:11
+ * @LastEditTime: 2022-01-05 13:03:46
  * @Descripttion: 
 -->
 <template>
@@ -37,6 +37,7 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
+  font-family: 'Microsoft YaHei';
   background-image: linear-gradient(to bottom, #ce141a, #ab6400);
 }
 .issue-skin {
