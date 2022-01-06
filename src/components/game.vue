@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-06 13:29:13
+ * @LastEditTime: 2022-01-06 13:34:21
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -264,9 +264,7 @@ export default {
           }
           // 如果问题不足5道，则添加一道问题
           if (this.questionList.length < 5) {
-            setTimeout(() => {
-              this.addQuestion()
-            }, 5000)
+            this.addQuestion()
           }
         }
       }
