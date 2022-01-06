@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-06 13:40:29
+ * @LastEditTime: 2022-01-06 22:59:41
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -84,7 +84,7 @@
               </div>
             </div>
             <div class="buff" v-if="question.result === question.question.answer">
-              攻速+1 射速+2 伤害+10
+              攻速+1 射速+1 伤害+1
             </div>
             <div class="desc" v-if="question.result && question.result !== question.question.answer">
               {{question.question.desc}}
@@ -117,12 +117,12 @@ export default {
       createBulletInterval: null, // 创建子弹的定时器
       frequency: 5, // 发射子弹频率
       bulletSpeed: 10, // 子弹飞行速度
-      damage: 5,// 子弹攻击力
+      damage: 2,// 子弹攻击力
       lastBulletTime: 0 // 上次发射子弹时间
     }
   },
   mounted () {
-    this.gameBegin()
+    // this.gameBegin()
   },
   methods: {
     // 开始游戏
@@ -235,7 +235,7 @@ export default {
       // eslint-disable-next-line no-debugger
       let data = {
         question: question,
-        answerTime: 11,
+        answerTime: 9,
         showTime: 6
       }
       // 添加展示倒计时
@@ -282,7 +282,7 @@ export default {
       if (answer === question.question.answer) {
         this.frequency++ // 攻速+1
         this.bulletSpeed += 2 // 射速+2
-        this.damage += 2 // 伤害+10
+        this.damage += 1 // 伤害+10
       }
     }
   },
