@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-06 12:44:44
+ * @LastEditTime: 2022-01-06 12:48:37
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -57,7 +57,7 @@
           <div class="count-down" v-if="question.answerTime > 0">
             <p>请在{{question.answerTime}}秒内点击正确答案</p>
           </div>
-          <div class="question-panel-title">问题一</div>
+          <div class="question-panel-title">问题 {{index+1}}</div>
           <div class="question-container">
             <div class="question-title">{{ question.question.title }}</div>
             <div class="answer-wrap show" v-if="!question.result">
@@ -350,10 +350,8 @@ export default {
   width: 200px;
   background: rgba(255, 255, 255, 0.1);
   padding: 10px;
-  margin-bottom: 50px;
-}
-.panel-item:not(:first-child) {
-  margin-left: 20px;
+  margin-bottom: 100px;
+  margin-right: 20px;
 }
 /* 游戏面板 */
 .game-panel {
