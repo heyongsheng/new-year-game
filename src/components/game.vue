@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-06 13:37:01
+ * @LastEditTime: 2022-01-06 13:40:29
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -110,14 +110,14 @@ export default {
       paozhuLeft: document.documentElement.clientWidth / 2, // 炮竹距离左边的距离
       nianshouLeft: 0, // 年兽距离左边的距离
       nianshouInterval: null, // 年兽移动的定时器
-      nianshouHP: 10000, // 年兽的血量
+      nianshouHP: 2021, // 年兽的血量
       screenWidth: document.documentElement.clientWidth, // 屏幕宽度
       screenHeight: document.documentElement.clientHeight, // 屏幕高度
       nianshouMoveDir: 4, // 年兽移动的方向
       createBulletInterval: null, // 创建子弹的定时器
       frequency: 5, // 发射子弹频率
       bulletSpeed: 10, // 子弹飞行速度
-      damage: 20,// 子弹攻击力
+      damage: 5,// 子弹攻击力
       lastBulletTime: 0 // 上次发射子弹时间
     }
   },
@@ -282,7 +282,7 @@ export default {
       if (answer === question.question.answer) {
         this.frequency++ // 攻速+1
         this.bulletSpeed += 2 // 射速+2
-        this.damage += 10 // 伤害+10
+        this.damage += 2 // 伤害+10
       }
     }
   },
