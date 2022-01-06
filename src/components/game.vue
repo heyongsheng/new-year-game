@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-06 13:12:02
+ * @LastEditTime: 2022-01-06 13:29:13
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -86,7 +86,7 @@
             <div class="buff" v-if="question.result === question.question.answer">
               攻速+1 射速+2 伤害+10
             </div>
-            <div class="desc" v-else>
+            <div class="desc" v-if="question.result && question.result !== question.question.answer">
               {{question.question.desc}}
             </div>
           </div>
@@ -442,7 +442,7 @@ export default {
 .desc {
   position: absolute;
   line-height: 20px;
-  bottom: -20px;
+  bottom: -10px;
   width: 100%;
   left: 0;
   transform: translateY(100%);
