@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-06 12:48:37
+ * @LastEditTime: 2022-01-06 13:12:02
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -231,8 +231,12 @@ export default {
      * @return {*}
      */
     addQuestion () {
+      let dataLength = this.questionData.length
+      let randomIndex = Math.floor(Math.random() * dataLength)
+      let question = this.questionData.splice(randomIndex, 1)[0]
+      // eslint-disable-next-line no-debugger
       let data = {
-        question: this.questionData[0],
+        question: question,
         answerTime: 11,
         showTime: 6
       }
