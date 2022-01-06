@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-06 00:32:33
+ * @LastEditTime: 2022-01-06 12:44:44
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -52,37 +52,43 @@
         v-for="(question, index) in questionList"
         :key="index"
       >
-        <div class="count-down" v-if="question.showTime > 0">
-          <p>请在{{question.showTime}}秒内点击正确答案</p>
-        </div>
-        <div class="question-panel-title">问题一</div>
-        <div class="question-container">
-          <div class="question-title">{{ question.question.title }}</div>
-          <div class="answer-wrap show" v-if="!question.result">
-            <div
-              class="answer-item"
-              v-for="item in question.question.option"
-              :key="item.key"
-              @click="answerQuestion(item.key, question)"
-            >
-              {{item.key}}：{{item.value}}
-            </div>
+        <p class="show-count-down" v-if="question.showTime > 0">{{question.showTime}}</p>
+        <div class="question-wrap" v-else>
+          <div class="count-down" v-if="question.answerTime > 0">
+            <p>请在{{question.answerTime}}秒内点击正确答案</p>
           </div>
-          <div class="answer-wrap result" v-else>
-            <div
-              class="answer-item"
-              v-for="item in question.question.option"
-              :key="item.key"
-              :class="{
-                result: question.question.answer === item.key
-              }"
-            >
-              {{item.key}}：{{item.value}}
-              <span class="check" v-if="question.result === item.key">◇</span>
+          <div class="question-panel-title">问题一</div>
+          <div class="question-container">
+            <div class="question-title">{{ question.question.title }}</div>
+            <div class="answer-wrap show" v-if="!question.result">
+              <div
+                class="answer-item"
+                v-for="item in question.question.option"
+                :key="item.key"
+                @click="answerQuestion(item.key, question)"
+              >
+                {{item.key}}：{{item.value}}
+              </div>
             </div>
-          </div>
-          <div class="buff" v-if="question.result === question.question.answer">
-            攻速+1 射速+2 伤害+10
+            <div class="answer-wrap result" v-else>
+              <div
+                class="answer-item"
+                v-for="item in question.question.option"
+                :key="item.key"
+                :class="{
+                  result: question.question.answer === item.key
+                }"
+              >
+                {{item.key}}：{{item.value}}
+                <span class="check" v-if="question.result === item.key">◇</span>
+              </div>
+            </div>
+            <div class="buff" v-if="question.result === question.question.answer">
+              攻速+1 射速+2 伤害+10
+            </div>
+            <div class="desc" v-else>
+              {{question.question.desc}}
+            </div>
           </div>
         </div>
       </div>
@@ -133,7 +139,9 @@ export default {
       // 生成子弹
       this.createBullet()
       // 添加第一道问题
-      this.addQuestion()
+      setTimeout(() => {
+        this.addQuestion()
+      }, 5000)
     },
     // 游戏结束
     gameOver () {
@@ -225,11 +233,23 @@ export default {
     addQuestion () {
       let data = {
         question: this.questionData[0],
+        answerTime: 11,
         showTime: 6
       }
+      // 添加展示倒计时
       let showCountDown = () => {
         data.showTime--
         if (data.showTime > 0) {
+          setTimeout(showCountDown, 1000)
+        } else {
+          // 倒计时结束，展示问题并开始答题倒计时
+          answerCountDown()
+        }
+      }
+      // 添加回答倒计时
+      let answerCountDown = () => {
+        data.answerTime--
+        if (data.answerTime > 0) {
           setTimeout(() => {
             showCountDown()
           }, 1000)
@@ -246,6 +266,7 @@ export default {
           }
         }
       }
+      // 执行展示倒计时
       showCountDown()
       this.questionList.push(data)
     }, 
@@ -357,8 +378,21 @@ export default {
   /* margin-top: 20px; */
   position: relative;
 }
+/* 展示倒计时 */
+.show-count-down {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 68px;
+  opacity: .8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-/* 倒计时 */
+/* 回答倒计时 */
 .count-down {
   position: absolute;
   line-height: 20px;
@@ -399,6 +433,17 @@ export default {
   bottom: -40px;
   width: 100%;
   left: 0;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.desc {
+  position: absolute;
+  line-height: 20px;
+  bottom: -20px;
+  width: 100%;
+  left: 0;
+  transform: translateY(100%);
   box-sizing: border-box;
   padding: 5px 10px;
   background: rgba(255, 255, 255, 0.2);

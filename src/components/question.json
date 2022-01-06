@@ -1,20 +1,17 @@
 [
   {
-    "title": "以下哪个名字是掘金运营？",
+    "title": "南京大屠杀纪念日是否全国试鸣防空警报？",
     "option": [
       {
         "key": "A",
-        "value": "Tory"
+        "value": "是"
       },
       {
         "key": "B",
-        "value": "Tony"
-      },
-      {
-        "key": "C",
-        "value": "Troy"
+        "value": "否"
       }
     ],
-    "answer": "C"
+    "answer": "B",
+    "desc": "南京大屠杀纪念日仅在南京地区试鸣防空警报"
   }
 ]
