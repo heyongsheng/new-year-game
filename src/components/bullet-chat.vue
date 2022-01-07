@@ -3,7 +3,7 @@
  * @Date: 2022-01-07 12:21:38
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-07 16:08:10
+ * @LastEditTime: 2022-01-07 18:09:09
  * @Descripttion: 弹幕组件
 -->
 <template>
@@ -16,6 +16,7 @@ export default {
   name: 'bullet-chat',
   data () {
     return {
+      blessingData: require('../assets/data/blessing.json'),
       bulletHeight: 70, // 弹幕高度
       ballistic: 0, // 弹道数量
       bulletSpeed: 1, // 弹幕速度
@@ -65,7 +66,11 @@ export default {
       bullet.style.top = index * this.bulletHeight + 'px'
       bullet.createNext = false // 是否已创建下一个弹幕
       bullet.nextSpace = Math.random() * (this.bulletInterval[1] - this.bulletInterval[0]) + this.bulletInterval[0] // 下一个弹幕间隔
-      bullet.innerText = "新年快乐"
+      // 从弹幕库随机取弹幕
+      let dataLength = this.blessingData.length
+      let randomIndex = Math.floor(Math.random() * dataLength)
+      let blessing = this.blessingData[randomIndex]
+      bullet.innerText = blessing.name + "：" + blessing.value
       this.$refs.bulletChat.appendChild(bullet)
 
       // 弹幕移动
