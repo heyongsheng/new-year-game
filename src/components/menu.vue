@@ -3,21 +3,21 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-07 22:34:42
+ * @LastEditTime: 2022-01-07 23:09:56
  * @Descripttion: 菜单
 -->
 <template>
   <div class="menu-wrap">
     <div class="title">年兽小游戏</div>
     <div class="menu-box">
-      <div class="menu-item" @click="gameBegin">开始游戏</div>
-      <div class="menu-item" @click="dialog = 'sound'" v-show="!sound">打开声音</div>
-      <div class="menu-item" @click="openSound" v-show="sound">关闭声音</div>
-      <div class="menu-item" @click="$store.commit('toggleBulletChat')">
+      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="gameBegin">开始游戏</div>
+      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="dialog = 'sound'" v-show="!sound">打开声音</div>
+      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="openSound" v-show="sound">关闭声音</div>
+      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="$store.commit('toggleBulletChat')">
         {{ $store.state.setting.showBulletChat ? '关闭弹幕' : '打开弹幕' }}
       </div>
-      <div class="menu-item" @click="dialog = 'comment'">关于弹幕</div>
-      <div class="menu-item" @click="dialog = 'support'">表扬作者</div>
+      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="dialog = 'comment'">关于弹幕</div>
+      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="dialog = 'support'">表扬作者</div>
     </div>
     <transition name="fadeUp">
       <div class="dialog" v-show="dialog ==='support'">
@@ -63,7 +63,9 @@ export default {
     return {
       dialog: false,
       sound: false,
-      backMusic: require('@/assets/mp3/back.mp3')
+      backMusic: require('@/assets/mp3/back.mp3'),
+      hoverMusic: require('@/assets/mp3/hover.wav'),
+      clickMusic: require('@/assets/mp3/click.wav')
     }
   },
   methods: {
