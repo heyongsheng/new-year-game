@@ -3,7 +3,7 @@
  * @Date: 2022-01-07 12:21:38
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-07 18:09:09
+ * @LastEditTime: 2022-01-07 22:52:54
  * @Descripttion: 弹幕组件
 -->
 <template>
@@ -19,7 +19,7 @@ export default {
       blessingData: require('../assets/data/blessing.json'),
       bulletHeight: 70, // 弹幕高度
       ballistic: 0, // 弹道数量
-      bulletSpeed: 1, // 弹幕速度
+      bulletSpeed: 2, // 弹幕速度
       bulletInterval: [100, 200], // 弹幕间隔
       screenWidth: document.documentElement.clientWidth, // 屏幕宽度
       screenHeight: document.documentElement.clientHeight, // 屏幕高度
@@ -103,14 +103,13 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.2);
 }
 .bullet-chat {
   position: absolute;
   white-space: nowrap;
   display: flex;
   align-items: center;
-  color: rgba(255, 255, 255, .2);
+  color: rgba(255, 255, 255, .3);
   font-size: 32px;
   /* font-weight: bold; */
 }

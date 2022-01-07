@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:13:00
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-07 12:22:41
+ * @LastEditTime: 2022-01-07 22:46:37
  * @Descripttion: 
 -->
 <template>
@@ -11,7 +11,7 @@
     <!-- 年兽背景 -->
     <img src="./assets/issue-skin.png"  class="issue-skin">
     <!-- 弹幕 -->
-    <bullet-chat></bullet-chat>
+    <bullet-chat v-if="$store.state.setting.showBulletChat"></bullet-chat>
     <menu-module v-show="!gameIng" @gameBegin="gameBegin"></menu-module>
     <game v-show="gameIng" ref="game"></game>
   </div>

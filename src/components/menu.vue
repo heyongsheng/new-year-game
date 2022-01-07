@@ -3,7 +3,7 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-07 15:52:19
+ * @LastEditTime: 2022-01-07 22:34:42
  * @Descripttion: 菜单
 -->
 <template>
@@ -11,10 +11,13 @@
     <div class="title">年兽小游戏</div>
     <div class="menu-box">
       <div class="menu-item" @click="gameBegin">开始游戏</div>
-      <div class="menu-item" @click="dialog = 'support'">表扬作者</div>
-      <div class="menu-item" @click="dialog = 'comment'">关于弹幕</div>
       <div class="menu-item" @click="dialog = 'sound'" v-show="!sound">打开声音</div>
       <div class="menu-item" @click="openSound" v-show="sound">关闭声音</div>
+      <div class="menu-item" @click="$store.commit('toggleBulletChat')">
+        {{ $store.state.setting.showBulletChat ? '关闭弹幕' : '打开弹幕' }}
+      </div>
+      <div class="menu-item" @click="dialog = 'comment'">关于弹幕</div>
+      <div class="menu-item" @click="dialog = 'support'">表扬作者</div>
     </div>
     <transition name="fadeUp">
       <div class="dialog" v-show="dialog ==='support'">
@@ -43,7 +46,10 @@
         </p>
         <div class="dialog-footer">
           <div class="footer-btn" @click="dialog = false">取消</div>
-          <div class="footer-btn close-btn" @click="dialog = false;openSound">确认</div>
+          <div class="footer-btn close-btn" @click="() => {
+            dialog = false;
+            openSound()
+          }">确认</div>
         </div>
       </div>
     </transition>
@@ -51,13 +57,13 @@
 </template>
 
 <script>
-
 export default {
   name: '',
   data () {
     return {
       dialog: false,
-      sound: false
+      sound: false,
+      backMusic: require('@/assets/mp3/back.mp3')
     }
   },
   methods: {
@@ -76,6 +82,7 @@ export default {
         // this.$refs.game.soundOff()
       } else {
         this.sound = true
+        this.$audio.playAudio(this.backMusic)
         // this.$refs.game.sound = true
         // this.$refs.game.soundOn()
       }
