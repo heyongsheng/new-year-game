@@ -3,26 +3,32 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-07 23:09:56
+ * @LastEditTime: 2022-01-07 23:46:42
  * @Descripttion: 菜单
 -->
 <template>
   <div class="menu-wrap">
     <div class="title">年兽小游戏</div>
     <div class="menu-box">
-      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="gameBegin">开始游戏</div>
-      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="dialog = 'sound'" v-show="!sound">打开声音</div>
-      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="openSound" v-show="sound">关闭声音</div>
-      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="$store.commit('toggleBulletChat')">
-        {{ $store.state.setting.showBulletChat ? '关闭弹幕' : '打开弹幕' }}
+      <div
+        class="menu-item"
+        v-for="(item, index) in menuList"
+        :key="index"
+        @mouseover="$store.commit('playAudio', hoverMusic)"
+        @click="$store.commit('playAudio', clickMusic),item.clickHandle()"
+        v-show="item.show()"
+      >
+        {{item.name}}
       </div>
-      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="dialog = 'comment'">关于弹幕</div>
-      <div class="menu-item" @mouseover="$audio.playAudio(hoverMusic)" @click="dialog = 'support'">表扬作者</div>
     </div>
     <transition name="fadeUp">
-      <div class="dialog" v-show="dialog ==='support'">
+      <div class="dialog" v-show="dialog === 'support'">
         <p>
-          感谢您的支持，本游戏正在参加掘金新春征文活动，如果您愿意对作者表示支持，可以点击链接(<a href="https://juejin.cn/user/2911162523723566/posts" target="_blank">https://juejin.cn/user/2911162523723566/posts</a>)前往活动文章，然后点赞评论即可，感谢您的支持，作者在这里提前给您拜年了，祝您身体健康，阖家欢乐！
+          感谢您的支持，本游戏正在参加掘金新春征文活动，如果您愿意对作者表示支持，可以点击链接(<a
+            href="https://juejin.cn/user/2911162523723566/posts"
+            target="_blank"
+            >https://juejin.cn/user/2911162523723566/posts</a
+          >)前往活动文章，然后点赞评论即可，感谢您的支持，作者在这里提前给您拜年了，祝您身体健康，阖家欢乐！
         </p>
         <div class="dialog-footer">
           <div class="footer-btn close-btn" @click="dialog = false">关闭</div>
@@ -30,9 +36,13 @@
       </div>
     </transition>
     <transition name="fadeUp">
-      <div class="dialog" v-show="dialog ==='comment'">
+      <div class="dialog" v-show="dialog === 'comment'">
         <p>
-          小游戏简陋，未接入接口，如果您想您的祝福出现在弹幕中，请您点击链接(<a href="https://juejin.cn/user/2911162523723566/posts" target="_blank">https://juejin.cn/user/2911162523723566/posts</a>)前往活动文章，把您的称呼及祝福写在评论区即可！
+          小游戏简陋，未接入接口，如果您想您的祝福出现在弹幕中，请您点击链接(<a
+            href="https://juejin.cn/user/2911162523723566/posts"
+            target="_blank"
+            >https://juejin.cn/user/2911162523723566/posts</a
+          >)前往活动文章，把您的称呼及祝福写在评论区即可！
         </p>
         <div class="dialog-footer">
           <div class="footer-btn close-btn" @click="dialog = false">关闭</div>
@@ -40,16 +50,18 @@
       </div>
     </transition>
     <transition name="fadeUp">
-      <div class="dialog" v-show="dialog ==='sound'">
+      <div class="dialog" v-show="dialog === 'sound'">
         <p>
           网站配乐较为喜庆，请确认您的耳机已经插入，音量已经调好，否则容易造成社死！
         </p>
         <div class="dialog-footer">
           <div class="footer-btn" @click="dialog = false">取消</div>
-          <div class="footer-btn close-btn" @click="() => {
-            dialog = false;
-            openSound()
-          }">确认</div>
+          <div
+            class="footer-btn close-btn"
+            @click="dialog = false, $store.commit('tooglePlay', true)"
+          >
+            确认
+          </div>
         </div>
       </div>
     </transition>
@@ -61,6 +73,57 @@ export default {
   name: '',
   data () {
     return {
+      menuList: [
+        {
+          name: '开始游戏',
+          clickHandle: () => {
+            this.gameBegin()
+          },
+          show: () => true
+        },
+        {
+          name: '打开声音',
+          clickHandle: () => {
+            this.dialog = 'sound'
+          },
+          show: () => !this.$store.state.setting.isPlay
+        },
+        {
+          name: '关闭声音',
+          clickHandle: () => {
+            this.$store.commit('tooglePlay', false)
+          },
+          show: () => this.$store.state.setting.isPlay
+        },
+        {
+          name: '打开弹幕',
+          clickHandle: () => {
+            this.$store.commit('toggleBulletChat')
+          },
+          show: () => !this.$store.state.setting.showBulletChat
+        },
+        {
+          name: '关闭弹幕',
+          clickHandle: () => {
+            this.$store.commit('toggleBulletChat')
+          },
+          show: () => this.$store.state.setting.showBulletChat
+        },
+        {
+          name: '发送弹幕',
+          clickHandle: () => {
+            this.dialog = 'comment'
+          },
+          show: () => true
+        },
+        {
+          name: '支持作者',
+          clickHandle: () => {
+            this.dialog = 'support'
+          },
+          show: () => true
+        }
+      ],
       dialog: false,
       sound: false,
       backMusic: require('@/assets/mp3/back.mp3'),
@@ -71,23 +134,6 @@ export default {
   methods: {
     gameBegin () {
       this.$emit('gameBegin')
-    },
-    /**
-     * @description: 打开/关闭声音
-     * @param {*}
-     * @return {*}
-     */
-    openSound () {
-      if (this.sound) {
-        this.sound = false
-        // this.$refs.game.sound = false
-        // this.$refs.game.soundOff()
-      } else {
-        this.sound = true
-        this.$audio.playAudio(this.backMusic)
-        // this.$refs.game.sound = true
-        // this.$refs.game.soundOn()
-      }
     }
   },
 }
@@ -170,8 +216,9 @@ export default {
   transform: scale(1.2);
 }
 
-.fadeUp-enter-active, .fadeUp-leave-active {
-  transition: opacity .3s, transform .3s;
+.fadeUp-enter-active,
+.fadeUp-leave-active {
+  transition: opacity 0.3s, transform 0.3s;
 }
 .fadeUp-enter /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
@@ -180,5 +227,5 @@ export default {
 .fadeUp-leave-to {
   opacity: 0;
   transform: translateX(-50%) translateY(-50%) scale(0.8);
- }
+}
 </style>
