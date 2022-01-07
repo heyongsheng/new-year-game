@@ -3,7 +3,7 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-06 23:55:34
+ * @LastEditTime: 2022-01-07 15:52:19
  * @Descripttion: 菜单
 -->
 <template>
@@ -84,6 +84,14 @@ export default {
 }
 </script>
 <style scoped>
+.menu-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+}
 .title {
   font-size: 110px;
   font-weight: bold;

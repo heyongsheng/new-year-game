@@ -3,21 +3,24 @@
  * @Date: 2022-01-04 21:13:00
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-06 22:53:28
+ * @LastEditTime: 2022-01-07 12:22:41
  * @Descripttion: 
 -->
 <template>
   <div id="app">
     <!-- 年兽背景 -->
     <img src="./assets/issue-skin.png"  class="issue-skin">
+    <!-- 弹幕 -->
+    <bullet-chat></bullet-chat>
     <menu-module v-show="!gameIng" @gameBegin="gameBegin"></menu-module>
     <game v-show="gameIng" ref="game"></game>
   </div>
 </template>
 
 <script>
-import menuModule from '@/components/menu'
-import game from '@/components/game'
+import menuModule from '@/components/menu.vue'
+import game from '@/components/game.vue'
+import bulletChat from '@/components/bullet-chat.vue'
 export default {
   name: 'App',
   data() {
@@ -27,7 +30,8 @@ export default {
   },
   components: {
     game,
-    menuModule
+    menuModule,
+    bulletChat
   },
   methods: {
     gameBegin() {

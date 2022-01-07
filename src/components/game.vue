@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-06 22:59:41
+ * @LastEditTime: 2022-01-07 16:12:47
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -102,7 +102,7 @@ export default {
   name: 'game',
   data () {
     return {
-      questionData: require('./question.json'),// 问题源数据
+      questionData: require('../assets/data/question.json'),// 问题源数据
       questionList: [],// 问题列表
       gameBeginTime: 0, // 游戏开始时间
       gameDuration: 0, // 游戏持续时间
