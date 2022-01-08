@@ -3,7 +3,7 @@
  * @Date: 2022-01-07 12:21:38
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-07 22:52:54
+ * @LastEditTime: 2022-01-08 22:43:06
  * @Descripttion: 弹幕组件
 -->
 <template>
@@ -17,12 +17,12 @@ export default {
   data () {
     return {
       blessingData: require('../assets/data/blessing.json'),
-      bulletHeight: 70, // 弹幕高度
       ballistic: 0, // 弹道数量
       bulletSpeed: 2, // 弹幕速度
-      bulletInterval: [100, 200], // 弹幕间隔
+      bulletInterval: [300, 500], // 弹幕间隔
       screenWidth: document.documentElement.clientWidth, // 屏幕宽度
       screenHeight: document.documentElement.clientHeight, // 屏幕高度
+      bulletHeight: document.documentElement.clientHeight / 10, // 弹幕高度
     }
   },
   mounted () {
