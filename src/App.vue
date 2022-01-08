@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:13:00
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-08 13:29:57
+ * @LastEditTime: 2022-01-09 00:24:54
  * @Descripttion: 
 -->
 <template>
@@ -13,7 +13,7 @@
     <!-- 弹幕 -->
     <bullet-chat v-if="$store.state.setting.showBulletChat"></bullet-chat>
     <menu-module v-show="!gameIng" @gameBegin="gameBegin"></menu-module>
-    <game v-show="gameIng" ref="game"></game>
+    <game v-show="gameIng" ref="game" @backToHome="gameIng = false"></game>
   </div>
 </template>
 

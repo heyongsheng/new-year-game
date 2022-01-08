@@ -3,13 +3,17 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-08 22:22:44
+ * @LastEditTime: 2022-01-09 01:05:11
  * @Descripttion: 游戏组件
 -->
 <template>
   <div class="game-wrap" ref="gemeWrap" @mouseup="removeMove">
     <!-- 年兽 -->
-    <div class="nianshou" :style="'marginLeft:' + nianshouLeft + 'px'">
+    <div
+      class="nianshou"
+      :style="'marginLeft:' + nianshouLeft + 'px'"
+      v-show="nianshouHP"
+    >
       <p>HP: {{ nianshouHP }}</p>
       <img src="../assets/nianshou.png" class="nianshou-img" />
     </div>
@@ -49,16 +53,18 @@
       <!-- 问题面板 -->
       <div
         class="question-panel panel-item"
-        :class="{clientCenter: question.answerTime > 0}"
+        :class="{ clientCenter: question.answerTime > 0 }"
         v-for="(question, index) in questionList"
         :key="index"
       >
-        <p class="show-count-down" v-if="question.showTime > 0">{{question.showTime}}</p>
+        <p class="show-count-down" v-if="question.showTime > 0">
+          {{ question.showTime }}
+        </p>
         <div class="question-wrap" v-else>
           <div class="count-down" v-if="question.answerTime > 0">
-            <p>请在{{question.answerTime}}秒内点击正确答案</p>
+            <p>请在{{ question.answerTime }}秒内点击正确答案</p>
           </div>
-          <div class="question-panel-title">问题 {{index+1}}</div>
+          <div class="question-panel-title">问题 {{ index + 1 }}</div>
           <div class="question-container">
             <div class="question-title">{{ question.question.title }}</div>
             <div class="answer-wrap show" v-if="!question.result">
@@ -66,9 +72,10 @@
                 class="answer-item"
                 v-for="item in question.question.option"
                 :key="item.key"
+                @mouseover="$store.commit('playAudio', hoverMusic)"
                 @click="answerQuestion(item.key, question)"
               >
-                {{item.key}}：{{item.value}}
+                {{ item.key }}：{{ item.value }}
               </div>
             </div>
             <div class="answer-wrap result" v-else>
@@ -77,19 +84,61 @@
                 v-for="item in question.question.option"
                 :key="item.key"
                 :class="{
-                  result: question.question.answer === item.key
+                  result: question.question.answer === item.key,
                 }"
               >
-                {{item.key}}：{{item.value}}
+                {{ item.key }}：{{ item.value }}
                 <span class="check" v-if="question.result === item.key">◇</span>
               </div>
             </div>
-            <div class="buff" v-if="question.result === question.question.answer">
+            <div
+              class="buff"
+              v-if="question.result === question.question.answer"
+            >
               攻速+1 射速+1 伤害+1
             </div>
-            <div class="desc" v-if="question.result && question.result !== question.question.answer">
-              {{question.question.desc}}
+            <div
+              class="desc"
+              v-if="
+                question.result && question.result !== question.question.answer
+              "
+            >
+              {{ question.question.desc }}
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 游戏结束 -->
+    <!-- v-show="!nianshouHP" -->
+    <div class="result-box" v-show="!nianshouHP">
+      <div class="result-title">你好，2022</div>
+      <div class="result-content">
+        <div class="result-titme result-block">
+          {{ formatTime(gameDuration) }}
+        </div>
+        <div class="result-desc result-block">
+          您共花费了{{
+            formatTime(gameDuration)
+          }}的时间击败了2021年的年兽，恭喜您获得了最终的胜利！也希望您所有的烦恼都随着这只年兽一起烟消云散，祝您新的一年心想事成，万事如意！
+        </div>
+        <div class="userBlessing">
+          <div class="blessing-username result-block">
+            恭喜你获得了 <b>{{userBlessing.name}}</b> 对你送出的祝福：
+          </div>
+          <div class="blessing-content result-block">
+            {{userBlessing.value}}
+          </div>
+        </div>
+        <div class="btn-wrap">
+          <div
+            class="btn-item result-block"
+            v-for="item in resultBtnData"
+            :key="item.name"
+            @mouseover="$store.commit('playAudio', hoverMusic)"
+            @click="$store.commit('playAudio', clickMusic),item.clickHandle()"
+          >
+            {{ item.name }}
           </div>
         </div>
       </div>
@@ -103,7 +152,12 @@ export default {
   name: 'game',
   data () {
     return {
-      questionData: require('../assets/data/question.json'),// 问题源数据
+      hoverMusic: require('@/assets/mp3/hover.wav'),
+      clickMusic: require('@/assets/mp3/click.wav'),
+      questionJson: require('@/assets/data/question.json'),
+      questionData: [],// 问题源数据
+      userBlessingData: require('@/assets/data/userBlessing.json'),// 用户祝福
+      userBlessing: {},
       questionList: [],// 问题列表
       gameBeginTime: 0, // 游戏开始时间
       gameDuration: 0, // 游戏持续时间
@@ -119,7 +173,40 @@ export default {
       frequency: 5, // 发射子弹频率
       bulletSpeed: 10, // 子弹飞行速度
       damage: 2,// 子弹攻击力
-      lastBulletTime: 0 // 上次发射子弹时间
+      lastBulletTime: 0, // 上次发射子弹时间
+      resultBtnData: [
+        {
+          name: '再来一次',
+          clickHandle: () => {
+            this.gameBegin()
+          }
+        },
+        {
+          name: '返回首页',
+          clickHandle: () => {
+            window.backMusic.currentTime = 127.2
+            this.$emit('backToHome')
+          }
+        },
+        {
+          name: '学习教程',
+          clickHandle: () => {
+            window.open('https://www.baidu.com/')
+          }
+        },
+        {
+          name: 'gitee',
+          clickHandle: () => {
+            window.open('https://www.baidu.com/')
+          }
+        },
+        {
+          name: 'github',
+          clickHandle: () => {
+            window.open('https://www.baidu.com/')
+          }
+        }
+      ]
     }
   },
   mounted () {
@@ -134,13 +221,28 @@ export default {
       this.paozhuLeft = document.documentElement.clientWidth / 2
       this.nianshouLeft = 0
       this.clientX = 0
+      // 清空年兽定时器
+      cancelAnimationFrame(this.nianshouInterval)
+      // 初始化问题列表
+      this.questionList = []
+      this.questionData = JSON.parse(JSON.stringify(this.questionJson))
+      // 重置攻速、伤害、射速
+      this.frequency = this.$options.data().frequency
+      this.damage = this.$options.data().damage
+      this.bulletSpeed = this.$options.data().bulletSpeed
+      // 重置年兽血量
+      this.nianshouHP = 2021
       // 年兽开始移动
-      // nianshowMove
       this.nianshouMove()
       // 生成子弹
       this.createBullet()
       // 添加第一道问题
       this.addQuestion()
+      // 从用户祝福库抽取随机祝福
+      let dataLength = this.userBlessingData.length
+      let randomIndex = Math.floor(Math.random() * dataLength)
+      this.userBlessing = this.userBlessingData[randomIndex]
+      
     },
     // 游戏结束
     gameOver () {
@@ -272,14 +374,15 @@ export default {
       // 执行展示倒计时
       showCountDown()
       this.questionList.push(data)
-    }, 
+    },
     /**
      * @description: 回答问题
      * @param {*} answer 选择的答案
      * @param {*} question 回答的问题
      * @return {*}
-     */    
-    answerQuestion(answer, question) {
+     */
+    answerQuestion (answer, question) {
+      this.$store.commit('playAudio', this.clickMusic)
       question.result = answer
       // 如果回答正确，则增加buff
       if (answer === question.question.answer) {
@@ -304,6 +407,7 @@ export default {
   position: absolute;
   bottom: 0;
   width: 50px;
+  z-index: 10;
 }
 .paozhu img {
   width: 100%;
@@ -356,7 +460,7 @@ export default {
   bottom: 0;
   left: 20px;
   /* transform: translateY(-50%); */
-  color: #fff;
+  color: #fffbde;
   display: flex;
   flex-direction: column;
   line-height: 1.5;
@@ -366,7 +470,7 @@ export default {
   width: 200px;
   background: rgba(255, 255, 255, 0.1);
   padding: 10px;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
   margin-right: 20px;
   margin-top: 50px;
   min-height: 180px;
@@ -394,7 +498,7 @@ export default {
 .question-panel {
   /* margin-top: 20px; */
   position: relative;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 .question-panel.clientCenter {
   position: fixed;
@@ -410,7 +514,7 @@ export default {
   width: 100%;
   height: 100%;
   font-size: 68px;
-  opacity: .8;
+  opacity: 0.8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -471,5 +575,51 @@ export default {
   box-sizing: border-box;
   padding: 5px 10px;
   background: rgba(255, 255, 255, 0.2);
+}
+/* 游戏结束弹框 */
+.result-box {
+  width: 500px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fffbde;
+}
+.result-title {
+  width: 100%;
+  position: absolute;
+  font-size: 64px;
+  line-height: 100px;
+  top: -120px;
+  text-align: center;
+  font-weight: bold;
+}
+.result-content {
+}
+.result-block {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.result-titme {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+}
+.result-desc {
+  margin-top: 20px;
+}
+.btn-wrap {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.btn-item {
+  cursor: pointer;
+}
+.blessing-username {
+  margin-top: 20px;
+}
+.blessing-content {
+  margin-top: 20px;
 }
 </style>

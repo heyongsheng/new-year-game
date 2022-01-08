@@ -3,12 +3,14 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-08 12:32:59
+ * @LastEditTime: 2022-01-08 23:40:35
  * @Descripttion: 菜单
 -->
 <template>
   <div class="menu-wrap">
-    <div class="title">年兽小游戏</div>
+    <div class="title">
+      <img :src="require('@/assets/title.png')" alt="">
+    </div>
     <div class="menu-box">
       <div
         class="menu-item"
@@ -31,7 +33,7 @@
           >)前往活动文章，然后点赞评论即可，感谢您的支持，作者在这里提前给您拜年了，祝您身体健康，阖家欢乐！
         </p>
         <div class="dialog-footer">
-          <div class="footer-btn close-btn" @click="dialog = false">关闭</div>
+          <div class="footer-btn close-btn" @click="dialog = false, $store.commit('playAudio', clickMusic)">关闭</div>
         </div>
       </div>
     </transition>
@@ -45,7 +47,7 @@
           >)前往活动文章，把您的称呼及祝福写在评论区即可！
         </p>
         <div class="dialog-footer">
-          <div class="footer-btn close-btn" @click="dialog = false">关闭</div>
+          <div class="footer-btn close-btn" @click="dialog = false, $store.commit('playAudio', clickMusic)">关闭</div>
         </div>
       </div>
     </transition>
@@ -58,7 +60,7 @@
           <div class="footer-btn" @click="dialog = false">取消</div>
           <div
             class="footer-btn close-btn"
-            @click="dialog = false, $store.commit('tooglePlay', true)"
+            @click="dialog = false, $store.commit('tooglePlay', true), $store.commit('playAudio', clickMusic)"
           >
             确认
           </div>
@@ -96,7 +98,7 @@ export default {
           show: () => this.$store.state.setting.isPlay
         },
         {
-          name: '打开弹幕(强烈建议)',
+          name: '打开弹幕',
           clickHandle: () => {
             this.$store.commit('toggleBulletChat')
           },
@@ -165,7 +167,7 @@ export default {
 .menu-item {
   color: #fff;
   text-align: center;
-  background-image: linear-gradient(to right bottom, #14ceb4, #ffe87a);
+  background-image: linear-gradient(to right bottom, #ff8549, #ffe35d);
   box-shadow: 0 5px 5px 1px rgb(255 237 26 / 20%);
   border-radius: 10px;
   font-size: 32px;
@@ -195,6 +197,9 @@ export default {
 }
 .dialog a {
   color: #ffdf83;
+}
+.dialog p {
+  user-select: text;
 }
 .dialog-footer {
   display: flex;
