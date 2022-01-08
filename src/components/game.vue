@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-08 18:18:12
+ * @LastEditTime: 2022-01-08 22:22:44
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -49,6 +49,7 @@
       <!-- 问题面板 -->
       <div
         class="question-panel panel-item"
+        :class="{clientCenter: question.answerTime > 0}"
         v-for="(question, index) in questionList"
         :key="index"
       >
@@ -337,9 +338,8 @@ export default {
   box-shadow: 0 0 5px #fff;
 }
 /* 面板区域 */
-.panel-wrap {
+/* .panel-wrap {
   position: absolute;
-  /* width: 200px; */
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
@@ -347,13 +347,30 @@ export default {
   display: flex;
   line-height: 1.5;
   flex-wrap: wrap;
+} */
+.panel-wrap {
+  position: absolute;
+  /* width: 200px; */
+  /* top: 50%; */
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  /* transform: translateY(-50%); */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
+  flex-wrap: wrap;
 }
 .panel-item {
   width: 200px;
   background: rgba(255, 255, 255, 0.1);
   padding: 10px;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
   margin-right: 20px;
+  margin-top: 50px;
+  min-height: 180px;
+  position: relative;
 }
 /* 游戏面板 */
 .game-panel {
@@ -377,6 +394,13 @@ export default {
 .question-panel {
   /* margin-top: 20px; */
   position: relative;
+  transition: all .2s;
+}
+.question-panel.clientCenter {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%) scale(1.5);
 }
 /* 展示倒计时 */
 .show-count-down {
