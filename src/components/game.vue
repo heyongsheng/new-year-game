@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-08 13:42:01
+ * @LastEditTime: 2022-01-08 18:18:12
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -190,7 +190,7 @@ export default {
         bullet.style.left = this.paozhuLeft + 25 + 'px'
         bullet.style.top = this.screenHeight - 123 + 'px'
         this.$refs.gemeWrap.appendChild(bullet)
-        this.$store.commit('playAudio', require('../assets/mp3/emit.wav'))
+        this.$store.commit('playAudio', require('../assets/mp3/emit.mp3'))
         // 子弹移动
         let bulletMove = () => {
           bullet.style.top = bullet.offsetTop - this.bulletSpeed + 'px'
@@ -198,6 +198,7 @@ export default {
           if (bullet.offsetTop <= 250 && bullet.offsetLeft >= this.nianshouLeft && bullet.offsetLeft <= this.nianshouLeft + 200) {
             // 年兽掉血
             this.nianshouHP -= this.damage
+            this.$store.commit('playAudio', require('../assets/mp3/boom.wav'))
             if (this.nianshouHP <= 0) {
               this.nianshouHP = 0
               this.gameOver()

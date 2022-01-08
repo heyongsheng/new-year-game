@@ -3,7 +3,7 @@
  * @Date: 2022-01-07 22:37:16
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-08 13:44:26
+ * @LastEditTime: 2022-01-08 18:17:09
  * @Descripttion: 
  */
 import Vuex from 'vuex'
@@ -44,7 +44,7 @@ export default new Vuex.Store({
         const audio = new Audio()
         audio.src = src
         audio.load()
-        audio.volume = .2
+        audio.volume = .5
         audio.play()
       }
     },
