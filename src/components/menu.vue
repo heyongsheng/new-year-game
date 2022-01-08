@@ -3,7 +3,7 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-07 23:46:42
+ * @LastEditTime: 2022-01-08 12:32:59
  * @Descripttion: 菜单
 -->
 <template>
@@ -82,7 +82,7 @@ export default {
           show: () => true
         },
         {
-          name: '打开声音',
+          name: '打开声音(强烈建议)',
           clickHandle: () => {
             this.dialog = 'sound'
           },
@@ -96,7 +96,7 @@ export default {
           show: () => this.$store.state.setting.isPlay
         },
         {
-          name: '打开弹幕',
+          name: '打开弹幕(强烈建议)',
           clickHandle: () => {
             this.$store.commit('toggleBulletChat')
           },

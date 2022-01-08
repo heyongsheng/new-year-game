@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:13:00
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-07 22:46:37
+ * @LastEditTime: 2022-01-08 13:29:57
  * @Descripttion: 
 -->
 <template>
@@ -34,7 +34,13 @@ export default {
     bulletChat
   },
   methods: {
+    /**
+     * @description: 开始游戏
+     * @param {*}
+     * @return {*}
+     */    
     gameBegin() {
+      window.backMusic.currentTime = 1
       this.gameIng = true
       this.$refs.game.gameBegin()
     }

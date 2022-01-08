@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-07 18:07:06
+ * @LastEditTime: 2022-01-08 13:42:01
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -190,6 +190,7 @@ export default {
         bullet.style.left = this.paozhuLeft + 25 + 'px'
         bullet.style.top = this.screenHeight - 123 + 'px'
         this.$refs.gemeWrap.appendChild(bullet)
+        this.$store.commit('playAudio', require('../assets/mp3/emit.wav'))
         // 子弹移动
         let bulletMove = () => {
           bullet.style.top = bullet.offsetTop - this.bulletSpeed + 'px'
