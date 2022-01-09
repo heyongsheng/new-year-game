@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-09 21:13:17
+ * @LastEditTime: 2022-01-10 00:32:16
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -255,7 +255,11 @@ export default {
     // 游戏结束
     gameOver () {
       // 播放游戏胜利音乐
-      this.successMusicAudio.play()
+      if (this.$store.state.setting.isPlay) {
+        this.successMusicAudio.play()
+      }
+        
+      // this.successMusicAudio.play()
       // 清除年兽移动定时器
       cancelAnimationFrame(this.nianshouInterval)
       // 清除子弹定时器
@@ -289,7 +293,6 @@ export default {
       } else if (this.nianshouLeft < 0) {
         this.nianshouMoveDir = 4
       }
-
       this.nianshouLeft += this.nianshouMoveDir
       this.nianshouInterval = requestAnimationFrame(this.nianshouMove)
     },

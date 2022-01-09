@@ -3,7 +3,7 @@
  * @Date: 2022-01-07 22:37:16
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-08 23:40:25
+ * @LastEditTime: 2022-01-09 23:52:42
  * @Descripttion: 
  */
 import Vuex from 'vuex'
@@ -19,8 +19,7 @@ export default new Vuex.Store({
   state: {
     setting: {
       isPlay: false,
-      showBulletChat: true,
-      backMusic: new Audio()
+      showBulletChat: true
     }
   },
   mutations: {
