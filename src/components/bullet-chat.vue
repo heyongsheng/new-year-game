@@ -3,7 +3,7 @@
  * @Date: 2022-01-07 12:21:38
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-08 22:43:06
+ * @LastEditTime: 2022-01-10 00:17:00
  * @Descripttion: 弹幕组件
 -->
 <template>
@@ -22,7 +22,6 @@ export default {
       bulletInterval: [300, 500], // 弹幕间隔
       screenWidth: document.documentElement.clientWidth, // 屏幕宽度
       screenHeight: document.documentElement.clientHeight, // 屏幕高度
-      bulletHeight: document.documentElement.clientHeight / 10, // 弹幕高度
     }
   },
   mounted () {
@@ -36,16 +35,16 @@ export default {
      */
     showBullet () {
       // 根据屏幕高度和弹幕高度计算弹道数量
-      let clientHeight = this.screenHeight
-      let ballisticCount = Math.floor(clientHeight / this.bulletHeight)
-      let ballisticArr = Array(ballisticCount).fill(1).map((item, index) => {
-        return index
-      })
+      // let clientHeight = this.screenHeight
+      // let ballisticCount = Math.floor(clientHeight / this.bulletHeight)
+      // let ballisticArr = Array(ballisticCount).fill(1).map((item, index) => {
+      //   return index
+      // })
+      let ballisticArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
       // 按随机顺序在所有的弹道添加弹幕
       let ballisticLaunch = () => {
         let randomIndex = Math.floor(Math.random() * ballisticArr.length)
         let ballisticIndex = ballisticArr.splice(randomIndex, 1)[0]
-        console.log(ballisticIndex);
         this.createBullet(ballisticIndex)
         if (ballisticArr.length > 0) {
           setTimeout(ballisticLaunch, Math.random() * 1000)
@@ -61,9 +60,10 @@ export default {
      */
     createBullet (index) {
       let bullet = document.createElement('div')
+      let bulletHeight = document.documentElement.clientHeight / 10
       bullet.className = 'bullet-chat'
       bullet.style.left = this.screenWidth + 'px'
-      bullet.style.top = index * this.bulletHeight + 'px'
+      bullet.style.top = index * bulletHeight + 'px'
       bullet.createNext = false // 是否已创建下一个弹幕
       bullet.nextSpace = Math.random() * (this.bulletInterval[1] - this.bulletInterval[0]) + this.bulletInterval[0] // 下一个弹幕间隔
       // 从弹幕库随机取弹幕
