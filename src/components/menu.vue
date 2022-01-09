@@ -3,7 +3,7 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-08 23:40:35
+ * @LastEditTime: 2022-01-09 20:57:23
  * @Descripttion: 菜单
 -->
 <template>
@@ -86,7 +86,7 @@ export default {
         {
           name: '打开声音(强烈建议)',
           clickHandle: () => {
-            this.dialog = 'sound'
+            this.$store.commit('tooglePlay', true)
           },
           show: () => !this.$store.state.setting.isPlay
         },
@@ -160,7 +160,7 @@ export default {
 .menu-box {
   position: absolute;
   width: 300px;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }

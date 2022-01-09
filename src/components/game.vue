@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-09 01:05:11
+ * @LastEditTime: 2022-01-09 21:13:17
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -154,6 +154,8 @@ export default {
     return {
       hoverMusic: require('@/assets/mp3/hover.wav'),
       clickMusic: require('@/assets/mp3/click.wav'),
+      successMusic: require('@/assets/mp3/success.wav'),
+      successMusicAudio: null,
       questionJson: require('@/assets/data/question.json'),
       questionData: [],// 问题源数据
       userBlessingData: require('@/assets/data/userBlessing.json'),// 用户祝福
@@ -178,12 +180,14 @@ export default {
         {
           name: '再来一次',
           clickHandle: () => {
+            this.successMusicAudio.pause()
             this.gameBegin()
           }
         },
         {
           name: '返回首页',
           clickHandle: () => {
+            this.successMusicAudio.pause()
             window.backMusic.currentTime = 127.2
             this.$emit('backToHome')
           }
@@ -210,6 +214,10 @@ export default {
     }
   },
   mounted () {
+    this.successMusicAudio = new Audio(this.successMusic)
+    this.successMusicAudio.loop = true
+    this.successMusicAudio.volume = 0.5
+    this.successMusicAudio.load()
     // this.gameBegin()
   },
   methods: {
@@ -246,6 +254,8 @@ export default {
     },
     // 游戏结束
     gameOver () {
+      // 播放游戏胜利音乐
+      this.successMusicAudio.play()
       // 清除年兽移动定时器
       cancelAnimationFrame(this.nianshouInterval)
       // 清除子弹定时器
