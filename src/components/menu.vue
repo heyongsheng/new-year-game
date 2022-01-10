@@ -3,7 +3,7 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-09 20:57:23
+ * @LastEditTime: 2022-01-10 14:42:55
  * @Descripttion: 菜单
 -->
 <template>
@@ -27,9 +27,9 @@
       <div class="dialog" v-show="dialog === 'support'">
         <p>
           感谢您的支持，本游戏正在参加掘金新春征文活动，如果您愿意对作者表示支持，可以点击链接(<a
-            href="https://juejin.cn/user/2911162523723566/posts"
+            href="https://juejin.cn/post/7051464086722183205/"
             target="_blank"
-            >https://juejin.cn/user/2911162523723566/posts</a
+            >https://juejin.cn/post/7051464086722183205/</a
           >)前往活动文章，然后点赞评论即可，感谢您的支持，作者在这里提前给您拜年了，祝您身体健康，阖家欢乐！
         </p>
         <div class="dialog-footer">
@@ -41,9 +41,9 @@
       <div class="dialog" v-show="dialog === 'comment'">
         <p>
           小游戏简陋，未接入接口，如果您想您的祝福出现在弹幕中，请您点击链接(<a
-            href="https://juejin.cn/user/2911162523723566/posts"
+            href="https://juejin.cn/post/7051464086722183205/"
             target="_blank"
-            >https://juejin.cn/user/2911162523723566/posts</a
+            >https://juejin.cn/post/7051464086722183205/</a
           >)前往活动文章，把您的称呼及祝福写在评论区即可！
         </p>
         <div class="dialog-footer">

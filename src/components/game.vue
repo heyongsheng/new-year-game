@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-10 00:32:16
+ * @LastEditTime: 2022-01-10 14:43:19
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -156,8 +156,8 @@ export default {
       clickMusic: require('@/assets/mp3/click.wav'),
       successMusic: require('@/assets/mp3/success.wav'),
       successMusicAudio: null,
-      questionJson: require('@/assets/data/question.json'),
-      questionData: [],// 问题源数据
+      questionJson: require('@/assets/data/question.json'), //问题源数据
+      questionData: [], // 当前轮题库
       userBlessingData: require('@/assets/data/userBlessing.json'),// 用户祝福
       userBlessing: {},
       questionList: [],// 问题列表
@@ -193,21 +193,21 @@ export default {
           }
         },
         {
-          name: '学习教程',
+          name: '搭建过程',
           clickHandle: () => {
-            window.open('https://www.baidu.com/')
+            window.open('https://juejin.cn/post/7051464086722183205/')
           }
         },
         {
           name: 'gitee',
           clickHandle: () => {
-            window.open('https://www.baidu.com/')
+            window.open('https://gitee.com/ihope_top/new-year-game')
           }
         },
         {
           name: 'github',
           clickHandle: () => {
-            window.open('https://www.baidu.com/')
+            window.open('https://github.com/heyongsheng/new-year-game')
           }
         }
       ]
