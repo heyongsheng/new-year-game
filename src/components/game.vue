@@ -3,7 +3,7 @@
  * @Date: 2022-01-04 21:39:58
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-10 14:43:19
+ * @LastEditTime: 2022-01-19 01:10:11
  * @Descripttion: 游戏组件
 -->
 <template>
@@ -154,7 +154,7 @@ export default {
     return {
       hoverMusic: require('@/assets/mp3/hover.wav'),
       clickMusic: require('@/assets/mp3/click.wav'),
-      successMusic: require('@/assets/mp3/success.wav'),
+      successMusic: require('@/assets/mp3/success.mp3'),
       successMusicAudio: null,
       questionJson: require('@/assets/data/question.json'), //问题源数据
       questionData: [], // 当前轮题库
