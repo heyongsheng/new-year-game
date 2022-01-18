@@ -3,7 +3,7 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-10 14:42:55
+ * @LastEditTime: 2022-01-19 01:33:15
  * @Descripttion: 菜单
 -->
 <template>
@@ -128,7 +128,6 @@ export default {
       ],
       dialog: false,
       sound: false,
-      backMusic: require('@/assets/mp3/back.mp3'),
       hoverMusic: require('@/assets/mp3/hover.wav'),
       clickMusic: require('@/assets/mp3/click.wav')
     }
