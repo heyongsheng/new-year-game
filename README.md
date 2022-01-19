@@ -3,10 +3,10 @@
  * @Date: 2022-01-05 08:43:55
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-10 14:43:40
+ * @LastEditTime: 2022-01-19 14:35:51
  * @Descripttion: 
 -->
-> 游戏地址： https://heyongsheng.github.io/game/index.html</br>
+> 游戏地址： http://ihope_top.gitee.io/new-year-game/</br>
 > 开发语言：vue</br>
 > 运行平台：Chrome</br>
 > gitee地址：https://gitee.com/ihope_top/new-year-game</br>
