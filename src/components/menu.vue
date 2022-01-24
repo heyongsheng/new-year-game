@@ -3,13 +3,13 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-24 13:29:42
+ * @LastEditTime: 2022-01-24 14:21:03
  * @Descripttion: 菜单
 -->
 <template>
   <div class="menu-wrap">
     <div class="gz-wrap">
-      <img src="/img/gz.jpg" alt="">
+      <img src="img/gz.jpg" alt="">
       <p>公众号：程序员十里青山</p>
     </div>
     <div class="title">
