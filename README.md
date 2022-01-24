@@ -15,7 +15,7 @@
 
 ## 公众号：程序员十里青山
 
-![image.png](/img/gz.jpg)
+![image.png](/public/img/gz.jpg)
 ## 游戏规则
 
 ![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/731cb8bd33914f628ffcf8e24c2e128f~tplv-k3u1fbpfcp-watermark.image?)
