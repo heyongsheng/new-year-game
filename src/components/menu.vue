@@ -3,14 +3,14 @@
  * @Date: 2022-01-06 22:35:07
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-24 14:21:03
+ * @LastEditTime: 2022-01-26 11:42:27
  * @Descripttion: 菜单
 -->
 <template>
   <div class="menu-wrap">
     <div class="gz-wrap">
       <img src="img/gz.jpg" alt="">
-      <p>公众号：程序员十里青山</p>
+      <p>公众号：百里青山</p>
     </div>
     <div class="title">
       <img :src="require('@/assets/title.png')" alt="">
