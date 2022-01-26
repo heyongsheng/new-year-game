@@ -3,7 +3,7 @@
  * @Date: 2022-01-05 08:43:55
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-01-24 13:17:14
+ * @LastEditTime: 2022-01-26 11:49:23
  * @Descripttion: 
 -->
 > 游戏地址： http://ihope_top.gitee.io/new-year-game/</br>
@@ -13,7 +13,7 @@
 > github地址：https://github.com/heyongsheng/new-year-game</br>
 > 游戏已开源，欢迎大家体验，也可以自行修改用作公司年会游戏等
 
-## 公众号：程序员十里青山
+## 公众号：百里青山
 
 ![image.png](/public/img/gz.jpg)
 ## 游戏规则
